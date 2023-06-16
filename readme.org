@@ -41,11 +41,11 @@ Update the following variables to match your setup.
 #+name: basic-setup
 #+begin_src emacs-lisp :tangle no
   (setq jrm/custom-vars
-        '((path-to-here . "/home/jrm/src/dotemacs/")
-          (node . "/home/jrm/.nvm/versions/node/v20.2.0/")
-          (html-language-server . "/home/jrm/.nvm/versions/node/v20.2.0/bin/vscode-html-language-server")
-          (angular-language-server . "/home/jrm/.nvm/versions/node/v20.2.0/lib/node_modules/@angular/language-server")
-          (global-node-modules . "/home/jrm/.nvm/versions/node/v20.2.0/lib/node_modules")
+        '((path-to-here . "/home/jrm/src/jeremacs/")
+          (node . "/home/jrm/.nvm/versions/node/v19.7.0/")
+          (html-language-server . "/home/jrm/.nvm/versions/node/v19.7.0/bin/vscode-html-language-server")
+          (angular-language-server . "/home/jrm/.nvm/versions/node/v19.7.0/lib/node_modules/@angular/language-server")
+          (global-node-modules . "/home/jrm/.nvm/versions/node/v19.7.0/lib/node_modules")
           (name . "Jeremy Gooch")
           (email . "jeremy.gooch@gmail.com")))
 #+end_src

@@ -53,7 +53,7 @@
 #+end_src
 * VTerm
 For some reason, using a setq or the :config or :custom keyword in  use-package does not set the variable correctly for vterm. Resorting to custom-set-variables.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (custom-set-variables
    '(vterm-keymap-exceptions (push "<f9>" vterm-keymap-exceptions))
    '(vterm-keymap-exceptions (push "C-o" vterm-keymap-exceptions)))
