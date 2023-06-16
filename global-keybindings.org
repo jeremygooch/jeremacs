@@ -1,0 +1,66 @@
+#+TITLE: Custom Global Keybindings
+:PROPERTIES:
+#+AUTHOR: Jeremy Gooch
+#+STARTUP: overview
+#+PROPERTY: header-args :results silent :tangle /tmp/init.keybindings.el
+:END:
+
+* Setup my own global key binding prefix
+#+begin_src emacs-lisp
+  (progn (define-prefix-command 'jrm-key-map))
+  (global-set-key (kbd "C-x C-j") jrm-key-map)
+#+end_src
+
+* Buffers
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-o") 'other-window)
+  (define-key dired-mode-map (kbd "C-o") 'other-window)
+  (define-key rg-mode-map (kbd "C-o") 'other-window)
+  (define-key grep-mode-map (kbd "C-o") 'other-window)
+#+end_src
+* Adjust Font Size
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x C-j p")  'jrm/adjust-font-size)
+#+end_src
+* Revert Buffer
+#+begin_src emacs-lisp
+  (global-set-key (kbd "s-u") '(lambda () (interactive) (revert-buffer t (not (buffer-modified-p)) t)))
+#+end_src
+* Frames
+#+begin_src emacs-lisp
+(global-set-key (kbd "<f9>") 'other-frame)
+#+end_src
+
+* Navigation
+** Paragraph Navigation
+#+BEGIN_SRC emacs-lisp
+   (global-set-key (kbd "M-p") 'backward-paragraph)
+   (global-set-key (kbd "M-n") 'forward-paragraph)
+ #+END_SRC
+
+** Line Numbers (linum)
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c l l") 'display-line-numbers-mode)
+#+END_SRC
+
+** Frame Navigation
+#+begin_src emacs-lisp
+(global-set-key (kbd "<f9>") 'other-frame)
+#+end_src
+* Ibuffer
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+#+end_src
+* VTerm
+For some reason, using a setq or the :config or :custom keyword in  use-package does not set the variable correctly for vterm. Resorting to custom-set-variables.
+#+begin_src emacs-lisp
+  (custom-set-variables
+   '(vterm-keymap-exceptions (push "<f9>" vterm-keymap-exceptions))
+   '(vterm-keymap-exceptions (push "C-o" vterm-keymap-exceptions)))
+  (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+#+end_src
+* Mark ring
+Adjust the local mark ring pop key sequence, so after pressing `C-u C-SPC`, you can just press `C-SPC` to keep jumping.
+#+BEGIN_SRC emacs-lisp
+  (setq set-mark-command-repeat-pop t)
+#+END_SRC

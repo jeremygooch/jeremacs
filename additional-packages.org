@@ -1,0 +1,20 @@
+#+TITLE: Additional Packages
+:PROPERTIES:
+#+AUTHOR: Jeremy Gooch
+#+STARTUP: overview
+#+PROPERTY: header-args :results silent :tangle /tmp/init.additional.el
+:END:
+
+* VTerm
+#+begin_src emacs-lisp
+  (use-package vterm)
+  ;; for some reason, using a setq or the :config or :custom keyword in
+  ;; use-package does not set the variable correctly for
+  ;; vterm. Resorting to custom-set-variables.
+  ;; (custom-set-variables
+  ;;  '(vterm-keymap-exceptions (push "<f9>" vterm-keymap-exceptions))
+  ;;  '(vterm-keymap-exceptions (push "C-o" vterm-keymap-exceptions)))
+  ;; (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+#+end_src
+
+

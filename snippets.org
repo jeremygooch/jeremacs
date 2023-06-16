@@ -1,0 +1,154 @@
+#+TITLE: Yasnippet Snippets
+:PROPERTIES:
+#+AUTHOR: Jeremy Gooch
+#+STARTUP: overview
+:END:
+
+I don't use snippets a ton, so these are just a few of the ones I use most
+
+* Instructions
+Evaluate the source block in [[Setup Directory Structure][Setup Directory Structure]], then tangle the file with =C-c C-v t=.
+
+** Setup Directory Structure
+#+begin_src emacs-lisp
+  (make-directory "~/.emacs.d/snippets/js-mode" t)
+  (make-directory "~/.emacs.d/snippets/css-mode" t)
+  (make-directory "~/.emacs.d/snippets/text-mode" t)
+  (make-directory "~/.emacs.d/snippets/typescript-mode" t)
+#+end_src
+** JS Mode
+*** Consoles
+#+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/clg
+# -*- mode: snippet -*-
+# name: console log
+# key: clg
+# --
+
+console.log('$1');$0
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/con
+# -*- mode: snippet -*-
+# name: console.log (mirror)
+# key: con
+# --
+
+console.log('$1', ${1:value});$0
+#+end_src
+
+*** Comments
+#+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/com
+# -*- mode: snippet -*-
+# name: console log
+# key: clg
+# --
+
+# -*- mode: snippet -*-
+# name: comment (/* ... */)
+# --
+/**
+ * $0
+ */
+#+end_src
+*** Methods
+#+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/cstr
+# -*- mode: snippet -*-
+# name: constructor
+# key: cstr
+# --
+
+constructor(
+    ${1:argument}
+) {
+    $0
+}
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/met
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: method
+# key: met
+# --
+${1:name}(${2:arg}) {
+  $0
+}
+#+end_src
+
+*** Imports
+#+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/import
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: import module
+# key: import
+# uuid: import
+# --
+import { ${2:module} } from "${1:lib}"
+#+end_src
+
+* CSS Mode
+#+begin_src snippet :tangle ~/.emacs.d/snippets/css-mode/bor
+# -*- mode: snippet -*-
+# name: border size style color
+# --
+border: ${1:1px} ${2:solid} ${3:red};
+#+end_src
+
+* Typescript Mode
+** Consoles
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/clg
+# -*- mode: snippet -*-
+# name: console log
+# key: clg
+# --
+
+console.log('$1');$0
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/con
+# -*- mode: snippet -*-
+# name: console.log (mirror)
+# key: con
+# --
+
+console.log('$1', ${1:value});$0
+#+end_src
+** Comments
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/com
+# -*- mode: snippet -*-
+# name: comment (/* ... */)
+# --
+/**
+ * $0
+ */
+#+end_src
+** Methods
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/cstr
+# -*- mode: snippet -*-
+# name: constructor
+# key: cstr
+# --
+
+constructor(
+    ${1:private} ${2:readonly} ${3:argument}: ${4:argumentType}
+) {
+    $0
+}
+#+end_src
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/met
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: method
+# key: met
+# --
+${1:name}(${2:arg}: ${3:type}):${4:void} {
+  $0
+}
+#+end_src
+** Imports
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/imports
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: import module
+# key: import
+# uuid: import
+# --
+import { ${2:module} } from "${1:lib}"
+#+end_src
+
