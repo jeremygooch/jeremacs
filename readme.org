@@ -20,12 +20,7 @@ To use this project:
 5. Tangle any other org files in this repo that you would like to use
 
 ** Notes
-To omit a block from being tangled, just set the src header to include =:tangle no=.
-#+begin_example
-#+begin_src emacs-lisp :tangle no
- ...
-#+end_src
-#+end_example
+To omit a block from being tangled, just set the src header to include =:tangle no=. [[https://orgmode.org/manual/Using-Header-Arguments.html][More info on header arguments.]]
 ** Known Issues
 - The modeline does not update to doom-modeline on initial install. *Workaround*: close and reopen emacs and the modeline should show up and work properly.
 * Dependencies
