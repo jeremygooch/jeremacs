@@ -14,8 +14,8 @@ This config requires Emacs >= 29 [[https://www.masteringemacs.org/article/how-to
 
 To use this project:
 1. clone this repo
-2. install [[Dependencies][dependencies]]
-3. update readme in [[Basic Setup]] for your personal binary paths and such
+2. install [[https://github.com/jeremygooch/jeremacs#dependencies][dependencies]]
+3. update readme in [[https://github.com/jeremygooch/jeremacs#basic-setup][Basic Setup]] for your personal binary paths and such
 4. Tangle the readme. To tangle the file, open it in emacs, then run =C-c C-v t=.
 5. Tangle any other org files in this repo that you would like to use
 
@@ -116,8 +116,7 @@ For the sake of completeness, configure name and email address
 
 #+begin_src emacs-lisp
   (require 'package)
-  (setq package-archives '(
-                           ("melpa-stable" . "http://stable.melpa.org/packages/")
+  (setq package-archives '(("melpa-stable" . "http://stable.melpa.org/packages/")
                            ("elpa" . "https://elpa.gnu.org/packages/")
                            ("gnu" . "http://elpa.gnu.org/packages/")
                            ("melpa" . "https://melpa.org/packages/")))
