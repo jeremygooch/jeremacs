@@ -2,7 +2,7 @@
 :PROPERTIES:
 #+AUTHOR: Jeremy Gooch
 #+STARTUP: overview
-#+PROPERTY: header-args :results silent :tangle /tmp/init.additional.el
+#+PROPERTY: header-args :results silent :tangle ~/.emacs.d/init.additional.el
 :END:
 
 * VTerm

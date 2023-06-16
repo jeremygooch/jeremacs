@@ -55,7 +55,7 @@ Update the following variables to match your setup.
 *** early-init.el
 In Emacs >= 27.1, the early-init.el file is run before the GUI is created. This can be used to take care of a few miscellaneous odds and ends.
 
-#+begin_src emacs-lisp :tangle /tmp/early-init.el
+#+begin_src emacs-lisp :tangle ~/.emacs.d/early-init.el
   ;; -*- lexical-binding: t; -*-
 
   ;; -------------------------------------------------------------------------------- ;;

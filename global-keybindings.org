@@ -2,7 +2,7 @@
 :PROPERTIES:
 #+AUTHOR: Jeremy Gooch
 #+STARTUP: overview
-#+PROPERTY: header-args :results silent :tangle /tmp/init.keybindings.el
+#+PROPERTY: header-args :results silent :tangle ~/.emacs.d/init.keybindings.el
 :END:
 
 * Setup my own global key binding prefix
