@@ -4,7 +4,7 @@
 #+STARTUP: overview
 :END:
 
-I don't use snippets a ton, so these are just a few of the ones I use most
+I don't use snippets a ton, so these are just a few of the ones I use most. Setup the directory structure in the [[Instructions][Instructions]] area before tangling.
 
 * Instructions
 Evaluate the source block in [[Setup Directory Structure][Setup Directory Structure]], then tangle the file with =C-c C-v t=.
@@ -16,8 +16,9 @@ Evaluate the source block in [[Setup Directory Structure][Setup Directory Struct
   (make-directory "~/.emacs.d/snippets/text-mode" t)
   (make-directory "~/.emacs.d/snippets/typescript-mode" t)
 #+end_src
-** JS Mode
-*** Consoles
+
+* JS Mode
+** Consoles
 #+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/clg
 # -*- mode: snippet -*-
 # name: console log
@@ -36,7 +37,7 @@ console.log('$1');$0
 console.log('$1', ${1:value});$0
 #+end_src
 
-*** Comments
+** Comments
 #+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/com
 # -*- mode: snippet -*-
 # name: console log
@@ -50,7 +51,7 @@ console.log('$1', ${1:value});$0
  * $0
  */
 #+end_src
-*** Methods
+** Methods
 #+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/cstr
 # -*- mode: snippet -*-
 # name: constructor
@@ -74,7 +75,7 @@ ${1:name}(${2:arg}) {
 }
 #+end_src
 
-*** Imports
+** Imports
 #+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/import
 # -*- mode: snippet; require-final-newline: nil -*-
 # name: import module

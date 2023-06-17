@@ -41,11 +41,11 @@ Update the following variables to match your setup.
 #+name: basic-setup
 #+begin_src emacs-lisp :tangle no
   (setq jrm/custom-vars
-        '((path-to-here . "/home/jrm/src/jeremacs/")
-          (node . "/home/jrm/.nvm/versions/node/v19.7.0/")
-          (html-language-server . "/home/jrm/.nvm/versions/node/v19.7.0/bin/vscode-html-language-server")
-          (angular-language-server . "/home/jrm/.nvm/versions/node/v19.7.0/lib/node_modules/@angular/language-server")
-          (global-node-modules . "/home/jrm/.nvm/versions/node/v19.7.0/lib/node_modules")
+        '((path-to-here . "/Users/jeremygooch/src/jeremacs/")
+          (node . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/")
+          (html-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/bin/html-languageserver")
+          (angular-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules/@angular/language-server")
+          (global-node-modules . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules")
           (name . "Jeremy Gooch")
           (email . "jeremy.gooch@gmail.com")))
 #+end_src
@@ -361,6 +361,19 @@ Some quick help for when getting stuck in the middle of a command
 This config uses the [[https://github.com/protesilaos/modus-themes][Modus Operandi themes]] from Protesilaos. The primary themes are Modus Operandi and Modus Vivendi and you can toggle between the 2 with the F5 key. To use a different theme, change =modus-operandi= on the line =(load-theme 'modus-operandi :no-confirm)= to the theme of your choice.
 
 #+begin_src emacs-lisp
+  (defun jrm/modus-operandi_extra-adjustments (theme)
+      "Updates additional colors and such based on the current modus theme"
+      (let ((isOperandi (string-equal theme "operandi")))
+        (if isOperandi
+            (custom-set-faces
+             '(org-block ((t (:inherit shadow :extend t :background "gray83"))))
+             '(org-block-begin-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9))))
+             '(org-block-end-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9)))))
+          (custom-set-faces
+           '(org-block ((t (:inherit shadow :extend t :background "gray20"))))
+           '(org-block-begin-line ((t (:extend t :background "gray11" :foreground "dim gray" :height 0.9))))
+           '(org-block-end-line ((t (:extend t :background "gray11" :foreground "dim gray" :height 0.9))))))))
+
   (use-package modus-themes
     :ensure
     :init
@@ -372,24 +385,20 @@ This config uses the [[https://github.com/protesilaos/modus-themes][Modus Operan
 
     :init
     (load-theme 'modus-vivendi :no-confirm) ;; (load-theme 'modus-operandi)
+    :init
+    (jrm/modus-operandi_extra-adjustments "vivendi")
     ;; Bind a dark mode and light mode toggle to F5 key
     :bind ("<f5>" . modus-themes-toggle))
 #+end_src
 
 #+begin_src emacs-lisp
-  (defun jrm/modus-operandi_extra-adjustments (theme)
-    "Updates additional colors and such based on the current modus theme"
-    (let ((isOperandi (string-equal theme "operandi")))
-      (if isOperandi
-          (custom-set-faces
-           '(org-block ((t (:inherit shadow :extend t :background "gray83"))))
-           '(org-block-begin-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9))))
-           '(org-block-end-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9)))))
-        (custom-set-faces
-         '(org-block ((t (:inherit shadow :extend t :background "gray20"))))
-         '(org-block-begin-line ((t (:extend t :background "gray11" :foreground "dim gray" :height 0.9))))
-         '(org-block-end-line ((t (:extend t :background "gray11" :foreground "dim gray" :height 0.9))))))
-      (setq dashboard-startup-banner (concat (cdr (assoc 'path-to-here jrm/custom-vars)) "assets/Lambda_transparent.png"))))
+    (defun jrm/modus-load-theme-extra-colors () "Toggles themes along with extra color settings"
+         (interactive)
+         (pcase (modus-themes--current-theme)
+           ('modus-operandi (jrm/modus-operandi_extra-adjustments "operandi"))
+           ('modus-vivendi (jrm/modus-operandi_extra-adjustments "vivendi"))
+           (_ (message "No modus theme enabled"))))
+  (add-hook 'modus-themes-after-load-theme-hook 'jrm/modus-load-theme-extra-colors)
 #+end_src
 **** Dashboard
 #+begin_src emacs-lisp
@@ -464,6 +473,7 @@ Show the asterisks as bullets and set up indentation
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
   (add-hook 'org-mode-hook 'org-indent-mode)
+  (add-hook 'org-mode-hook 'jrm/modus-load-theme-extra-colors)
 #+END_SRC
 
 Hide formatting characters
