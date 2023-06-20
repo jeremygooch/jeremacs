@@ -14,7 +14,7 @@ Evaluate the source block in [[Setup Directory Structure][Setup Directory Struct
   (make-directory "~/.emacs.d/snippets/js-mode" t)
   (make-directory "~/.emacs.d/snippets/css-mode" t)
   (make-directory "~/.emacs.d/snippets/text-mode" t)
-  (make-directory "~/.emacs.d/snippets/typescript-mode" t)
+  (make-directory "~/.emacs.d/snippets/typescript-ts-mode" t)
 #+end_src
 
 * JS Mode
@@ -95,7 +95,7 @@ border: ${1:1px} ${2:solid} ${3:red};
 
 * Typescript Mode
 ** Consoles
-#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/clg
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-ts-mode/clg
 # -*- mode: snippet -*-
 # name: console log
 # key: clg
@@ -104,7 +104,7 @@ border: ${1:1px} ${2:solid} ${3:red};
 console.log('$1');$0
 #+end_src
 
-#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/con
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-ts-mode/con
 # -*- mode: snippet -*-
 # name: console.log (mirror)
 # key: con
@@ -113,7 +113,7 @@ console.log('$1');$0
 console.log('$1', ${1:value});$0
 #+end_src
 ** Comments
-#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/com
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-ts-mode/com
 # -*- mode: snippet -*-
 # name: comment (/* ... */)
 # --
@@ -122,7 +122,7 @@ console.log('$1', ${1:value});$0
  */
 #+end_src
 ** Methods
-#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/cstr
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-ts-mode/cstr
 # -*- mode: snippet -*-
 # name: constructor
 # key: cstr
@@ -134,7 +134,7 @@ constructor(
     $0
 }
 #+end_src
-#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/met
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-ts-mode/met
 # -*- mode: snippet; require-final-newline: nil -*-
 # name: method
 # key: met
@@ -144,7 +144,7 @@ ${1:name}(${2:arg}: ${3:type}):${4:void} {
 }
 #+end_src
 ** Imports
-#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-mode/imports
+#+begin_src snippet :tangle ~/.emacs.d/snippets/typescript-ts-mode/imports
 # -*- mode: snippet; require-final-newline: nil -*-
 # name: import module
 # key: import
