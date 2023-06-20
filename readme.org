@@ -791,6 +791,7 @@ By default, code folding is bound to =C-<return>=.
     :hook ((js-mode . yafolding-mode)
            (js2-mode . yafolding-mode)
            (typescript-mode . yafolding-mode)
+           (typescript-ts-mode . yafolding-mode)
            (fundamental-mode . yafolding-mode)))
 #+end_src
 **** Yaml
