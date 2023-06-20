@@ -705,9 +705,10 @@ Disable bidirectional editing for performance issues when opening large files.
 #+end_src
 **** Typescript
 #+begin_src emacs-lisp
-(use-package typescript-mode
-      :hook (typescript-mode . jrm/ecma-prettify-symbols))
-(use-package ob-typescript :diminish typescript-mode)
+  (use-package typescript-mode
+        :hook (typescript-mode . jrm/ecma-prettify-symbols)
+        :hook (typescript-ts-mode . jrm/ecma-prettify-symbols))
+  (use-package ob-typescript :diminish typescript-mode)
 #+end_src
 
 **** LSP
