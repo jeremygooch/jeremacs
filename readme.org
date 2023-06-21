@@ -764,6 +764,10 @@ This config uses lsp-mode instead of eglot for better angular template support o
   (use-package company-box
     :hook (company-mode . company-box-mode))
 #+end_src
+**** Inline Compilation Errors with Flycheck
+#+begin_src emacs-lisp
+(use-package flycheck :diminish flycheck-mode)
+#+end_src
 **** TreeSitter
 Auto install treesitter sources if they're not present
 #+begin_src emacs-lisp
