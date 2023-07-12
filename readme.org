@@ -613,6 +613,10 @@ I prefer to see trailing whitespace but not for every mode (e.g. org, elfeed, et
 
   (set-face-attribute 'default nil :height 120)
 #+end_src
+*** Line Wrapping / Truncate Lines
+#+begin_src emacs-lisp
+(global-visual-line-mode t)
+#+end_src
 ** Movement
 *** Avy
 Avy is great for speed-of-thought navigation. Only install it when needed.

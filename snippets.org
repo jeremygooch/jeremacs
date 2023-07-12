@@ -7,9 +7,9 @@
 I don't use snippets a ton, so these are just a few of the ones I use most. Setup the directory structure in the [[Instructions][Instructions]] area before tangling.
 
 * Instructions
-Evaluate the source block in [[Setup Directory Structure][Setup Directory Structure]], then tangle the file with =C-c C-v t=.
+Evaluate the source block in [[Setup Directory Structure][Setup Directory Structure]], and [[Pre-Tangle]] then tangle the file with =C-c C-v t=. When done evaluate the source block in [[Post-Tangle]].
 
-** Setup Directory Structure
+** Setup Directory Structure                                                       :noexport:
 #+begin_src emacs-lisp
   (make-directory "~/.emacs.d/snippets/js-mode" t)
   (make-directory "~/.emacs.d/snippets/css-mode" t)
@@ -17,6 +17,21 @@ Evaluate the source block in [[Setup Directory Structure][Setup Directory Struct
   (make-directory "~/.emacs.d/snippets/typescript-ts-mode" t)
 #+end_src
 
+** Pre-Tangle                                                       :noexport:
+
+#+begin_src emacs-lisp
+  (defun jrm/zap-newline-at-eob ()
+     (goto-char (point-max))
+     (when (equal (char-before) ?\n)
+       (delete-char -1)
+       (save-buffer)))
+
+  (add-hook 'org-babel-post-tangle-hook #'jrm/zap-newline-at-eob)
+#+end_src
+** Post-Tangle                                                    :noexport:
+#+begin_src emacs-lisp
+(remove-hook 'org-babel-post-tangle-hook #'jrm/zap-newline-at-eob)
+#+end_src
 * JS Mode
 ** Consoles
 #+begin_src snippet :tangle ~/.emacs.d/snippets/js-mode/clg
@@ -152,4 +167,3 @@ ${1:name}(${2:arg}: ${3:type}):${4:void} {
 # --
 import { ${2:module} } from "${1:lib}"
 #+end_src
-
