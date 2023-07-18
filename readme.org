@@ -501,6 +501,16 @@ Show lists with a bullet rather than the =-= character.
 (require 'ox-md nil t)
 #+end_src
 
+Helpful utility using pandoc as the backend for converting markdown back to org mode. Lifted from [[https://emacs.stackexchange.com/questions/5465/how-to-migrate-markdown-files-to-emacs-org-mode-format][here]].
+#+begin_src emacs-lisp
+  (defun markdown-convert-buffer-to-org ()
+    "Convert the current buffer's content from markdown to orgmode format and save it with the current buffer's file name but with .org extension."
+    (interactive)
+    (shell-command-on-region (point-min) (point-max)
+                             (format "pandoc -f markdown -t org -o %s"
+                                     (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
+#+end_src
+
 *** Glyphs/Symbols/Ligatures for common words/expressions
 Some nice eye candy for code buffers
 #+begin_src emacs-lisp
