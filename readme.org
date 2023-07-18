@@ -31,6 +31,7 @@ To omit a block from being tangled, just set the src header to include =:tangle 
  - eslint: ~npm i -g eslint~
  - html support: ~npm install -g vscode-html-languageserver-bin~
  - [[https://fonts.google.com/specimen/Roboto][Roboto]] and [[https://fonts.google.com/specimen/Inconsolata?authuser=3&hl=fa][Inconsolata]] fonts
+ - Pandoc for converting between org mode and other formats like markdown
 
 ** OS Specific Deps
 *** MacOS
