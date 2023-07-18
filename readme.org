@@ -495,6 +495,12 @@ Show lists with a bullet rather than the =-= character.
 :height 0.9))))
    '(org-block-end-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9)))))
 #+end_src
+**** Additional Export Backends
+***** Markdown
+#+begin_src emacs-lisp
+(require 'ox-md nil t)
+#+end_src
+
 *** Glyphs/Symbols/Ligatures for common words/expressions
 Some nice eye candy for code buffers
 #+begin_src emacs-lisp
