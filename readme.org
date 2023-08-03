@@ -815,6 +815,8 @@ By default, code folding is bound to =C-<return>=.
   (use-package yafolding
     :hook ((js-mode . yafolding-mode)
            (js2-mode . yafolding-mode)
+           (css-mode . yafolding-mode)
+           (scss-mode . yafolding-mode)
            (typescript-mode . yafolding-mode)
            (typescript-ts-mode . yafolding-mode)
            (fundamental-mode . yafolding-mode)))
