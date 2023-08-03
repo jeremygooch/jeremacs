@@ -643,9 +643,9 @@ Avy is great for speed-of-thought navigation. Only install it when needed.
    #'(lambda ()
        (interactive)
        (if (require 'avy nil 'no-error)
-           (avy-goto-char-timer)
+           (call-interactively 'avy-goto-word-1)
          (if (yes-or-no-p "Package Avy is not installed. Would you like Emacs to install it for you?")
-             (use-package avy :config (avy-goto-word-1))))))
+             (use-package avy :config (call-interactively 'avy-goto-word-1))))))
  #+END_SRC
 *** Org Mode
 Setup an easy way to jump to an org headline using org-goto =C-c C-j=
