@@ -32,12 +32,6 @@
 #+end_src
 
 * Navigation
-** Paragraph Navigation
-#+BEGIN_SRC emacs-lisp
-   (global-set-key (kbd "M-p") 'backward-paragraph)
-   (global-set-key (kbd "M-n") 'forward-paragraph)
- #+END_SRC
-
 ** Line Numbers (linum)
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c l l") 'display-line-numbers-mode)
@@ -64,3 +58,27 @@ Adjust the local mark ring pop key sequence, so after pressing `C-u C-SPC`, you 
 #+BEGIN_SRC emacs-lisp
   (setq set-mark-command-repeat-pop t)
 #+END_SRC
+* Priority Keys
+Setup custom minor mode so keybindings can be turned on/off easily. This is helpful as some major modes want to use these keybindings but I would rather have them bound to custom functions by default, but =global-set-key= doesn't take priority when a major mode specifies custom bindings. See: https://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
+#+begin_src emacs-lisp
+  (defvar jrm-keys-minor-mode-map
+    (let ((map (make-sparse-keymap)))
+
+      ;; Navigation
+      (define-key map (kbd "M-n") 'forward-paragraph)
+      (define-key map (kbd "M-p") 'backward-paragraph)
+      map)
+    "Jrm keys minor mode keyap.")
+
+  (define-minor-mode jrm-keys-minor-mode
+    "A minor mode so that my key bindings override annoying major modes."
+    :init-value t
+    :lighter " jrm-keys")
+  (jrm-keys-minor-mode 1)
+
+  ;; Don't show minor mode in minibuffer
+  (defun jrm-minibuffer-setup-hook ()
+    (jrm-keys-minor-mode 0))
+  (add-hook 'minibuffer-setup-hook 'jrm-minibuffer-setup-hook)
+
+#+end_src
