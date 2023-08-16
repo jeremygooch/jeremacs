@@ -26,7 +26,7 @@ To omit a block from being tangled, just set the src header to include =:tangle 
 * Dependencies
  - [[https://github.com/BurntSushi/ripgrep][ripgrep]] (rg) for better grep
  - node for JS cli, recommend (but not require) [[https://github.com/nvm-sh/nvm][nvm]] for managing versions
- - [[https://github.com/typescript-language-server/typescript-language-server][Typescript server]] for Eglot. Make sure it is on your PATH
+ - [[https://github.com/typescript-language-server/typescript-language-server][Typescript server]]. Make sure it is on your PATH
  - [[https://emacs-lsp.github.io/lsp-mode/page/lsp-angular/][Angular Language Server]]
  - eslint: ~npm i -g eslint~
  - html support: ~npm install -g vscode-html-languageserver-bin~
