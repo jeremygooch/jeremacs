@@ -10,7 +10,9 @@
 * Getting Started
 Opinionated emacs config centered around general web development (primarily for angular at this time), minimal lisp development, and documentation. This is a literate config so simply tangle this file and any additional org files in this repo which include functionality like my personal keybindings and common snippets for template completion, etc.
 
-This config requires Emacs >= 29 [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter][compiled with treesitter]]. Note, this config will attempt to install language grammers for treesitter as you need them, so no need to install those manually.
+This config requires Emacs >= 29 [[https://www.masteringemacs.org/article/how-to-get-started-tree-sitter][compiled with treesitter]]. It is possible to run this config on older Emacs versions, but you may need to turn off certain blocks (i.e. [[treesitter]]) to get it to work correctly. For instance, I'm running this config on an Android phone via termux for Emacs 28.3 and it works great but did require turning off certain features via trial-and-error.
+
+Note, this config will attempt to install language grammers for treesitter as you need them, so no need to install those manually.
 
 To use this project:
 1. clone this repo
