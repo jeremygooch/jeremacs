@@ -456,13 +456,15 @@ Show lists with a bullet rather than the =-= character.
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 #+end_src
 **** Source Blocks
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (custom-set-faces
-   '(org-block ((t (:inherit shadow :extend t :background "gray83"))))
-   '(org-block-begin-line ((t (:extend t :background "gray95" :foreground "gray59" 
+   '(org-block ((t (:inherit shadow :extend t :background "#202531"))))
+   '(org-block-begin-line ((t (:extend t :background "#191d27" :foreground "#617776" 
 :height 0.9))))
-   '(org-block-end-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9)))))
+   '(org-block-end-line ((t (:extend t :background "#191d27" :foreground "#617776" :height 0.9)))))
 #+end_src
+
+#89a5a4
 **** Additional Export Backends
 ***** Markdown
 #+begin_src emacs-lisp
