@@ -360,49 +360,15 @@ Some quick help for when getting stuck in the middle of a command
         :config (yas-global-mode))
 #+end_src
 *** Theme
-**** Modus Operandi
-This config uses the [[https://github.com/protesilaos/modus-themes][Modus Operandi themes]] from Protesilaos. The primary themes are Modus Operandi and Modus Vivendi and you can toggle between the 2 with the F5 key. To use a different theme, change =modus-operandi= on the line =(load-theme 'modus-operandi :no-confirm)= to the theme of your choice.
+**** Nord Theme
+This config uses the [[https://www.nordtheme.com/ports/emacs][Nord theme port for emacs]].
 
 #+begin_src emacs-lisp
-  (defun jrm/modus-operandi_extra-adjustments (theme)
-      "Updates additional colors and such based on the current modus theme"
-      (let ((isOperandi (string-equal theme "operandi")))
-        (if isOperandi
-            (custom-set-faces
-             '(org-block ((t (:inherit shadow :extend t :background "gray83"))))
-             '(org-block-begin-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9))))
-             '(org-block-end-line ((t (:extend t :background "gray95" :foreground "gray59" :height 0.9)))))
-          (custom-set-faces
-           '(org-block ((t (:inherit shadow :extend t :background "gray20"))))
-           '(org-block-begin-line ((t (:extend t :background "gray11" :foreground "dim gray" :height 0.9))))
-           '(org-block-end-line ((t (:extend t :background "gray11" :foreground "dim gray" :height 0.9))))))))
-
-  (use-package modus-themes
-    :ensure
-    :init
-    (setq modus-themes-italic-constructs nil
-          modus-themes-bold-constructs t
-          modus-themes-mode-line '(borderless)
-          modus-themes-paren-match '(bold intense underline)
-          modus-themes-region '(bg-only))
-
-    :init
-    (load-theme 'modus-vivendi :no-confirm) ;; (load-theme 'modus-operandi)
-    :init
-    (jrm/modus-operandi_extra-adjustments "vivendi")
-    ;; Bind a dark mode and light mode toggle to F5 key
-    :bind ("<f5>" . modus-themes-toggle))
+(use-package nord-theme
+  :config
+  (load-theme 'nord :no-confirm))
 #+end_src
 
-#+begin_src emacs-lisp
-    (defun jrm/modus-load-theme-extra-colors () "Toggles themes along with extra color settings"
-         (interactive)
-         (pcase (modus-themes--current-theme)
-           ('modus-operandi (jrm/modus-operandi_extra-adjustments "operandi"))
-           ('modus-vivendi (jrm/modus-operandi_extra-adjustments "vivendi"))
-           (_ (message "No modus theme enabled"))))
-  (add-hook 'modus-themes-after-load-theme-hook 'jrm/modus-load-theme-extra-colors)
-#+end_src
 **** Dashboard
 #+begin_src emacs-lisp
   (use-package dashboard
@@ -476,7 +442,6 @@ Show the asterisks as bullets and set up indentation
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
   (add-hook 'org-mode-hook 'org-indent-mode)
-  (add-hook 'org-mode-hook 'jrm/modus-load-theme-extra-colors)
 #+END_SRC
 
 Hide formatting characters
