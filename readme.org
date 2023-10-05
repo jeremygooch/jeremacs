@@ -44,13 +44,13 @@ Update the following variables to match your setup.
 #+name: basic-setup
 #+begin_src emacs-lisp :tangle no
   (setq jrm/custom-vars
-        '((path-to-here . "/Users/jeremygooch/src/jeremacs/")
-          (node . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/")
-          (html-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/bin/html-languageserver")
-          (angular-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules/@angular/language-server")
-          (global-node-modules . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules")
-          (name . "Jeremy Gooch")
-          (email . "jeremy.gooch@gmail.com")))
+	'((path-to-here . "/data/data/org.gnu.emacs/files/src/jeremacs")
+	  (node . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/")
+	  (html-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/bin/html-languageserver")
+	  (angular-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules/@angular/language-server")
+	  (global-node-modules . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules")
+	  (name . "Jeremy Gooch")
+	  (email . "jeremy.gooch@gmail.com")))
 #+end_src
 
 * Detailed Install
@@ -58,7 +58,7 @@ Update the following variables to match your setup.
 *** early-init.el
 In Emacs >= 27.1, the early-init.el file is run before the GUI is created. This can be used to take care of a few miscellaneous odds and ends.
 
-#+begin_src emacs-lisp :tangle ~/.emacs.d/early-init.el
+#+begin_src emacs-lisp :tangle no
   ;; -*- lexical-binding: t; -*-
 
   ;; -------------------------------------------------------------------------------- ;;
@@ -142,7 +142,7 @@ For the sake of completeness, configure name and email address
 
 *** Better Garbage Collection Strategy
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package gcmh
     :diminish gcmh-mode
     :config
@@ -166,13 +166,13 @@ Ensure environment variables inside Emacs look the same as in the standard shell
 #+END_SRC
 
 Set custom exec path for git and node
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq exec-path (append exec-path '("/usr/local/git/bin")))
   (setq exec-path (append exec-path (list (concat (cdr (assoc 'node jrm/custom-vars)) "bin/"))))
 #+END_SRC
 
 Ensure node is on path
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setenv "PATH" (concat (getenv "PATH") (concat ":" (cdr (assoc 'node jrm/custom-vars)) "bin/")))
 #+END_SRC
 
@@ -269,7 +269,7 @@ Look and feel
 #+end_src
 **** Zip Files
 Allow uncompressing zip files
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (eval-after-load "dired-aux"
      '(add-to-list 'dired-compress-file-suffixes 
 		   '("\\.zip\\'" ".zip" "unzip")))
@@ -315,7 +315,7 @@ Use ripgrep by default
 **** GPG Pinentry
 Instead of using the display's popup, prompt for gpg creds in the minibuffer
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq epa-pinentry-mode 'loopback)
 #+END_SRC
 *** Completion
@@ -354,7 +354,7 @@ Some quick help for when getting stuck in the middle of a command
 #+END_SRC
 
 **** Yasnippet
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
       (use-package yasnippet
         :init (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
         :config (yas-global-mode))
@@ -725,7 +725,7 @@ This config uses lsp-mode instead of eglot for better angular template support o
   (use-package dap-mode)
   #+end_src
 ***** Angular Server
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (setq lsp-html-server-command `(,(cdr (assoc 'html-language-server jrm/custom-vars)) "--stdio"))
   (setq lsp-clients-angular-language-server-command
         `("node"
@@ -737,7 +737,7 @@ This config uses lsp-mode instead of eglot for better angular template support o
           "--stdio"))
 #+end_src
 ***** Autocomplete with Company
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package company
     :defer t
     :after lsp-mode
@@ -849,7 +849,7 @@ Copy current File path. Lifted from (http://ergoemacs.org/emacs/emacs_copy_file_
 *** Advanced Terminals
 **** Ansi Terminal
 Ansi term is a great built in terminal. By default force it to use bash.
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defvar my-term-shell "/bin/bash")
   (defadvice ansi-term (before force-bash)
     (interactive (list my-term-shell)))
