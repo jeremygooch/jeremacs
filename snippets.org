@@ -15,6 +15,8 @@ Evaluate the source block in [[Setup Directory Structure][Setup Directory Struct
   (make-directory "~/.emacs.d/snippets/css-mode" t)
   (make-directory "~/.emacs.d/snippets/text-mode" t)
   (make-directory "~/.emacs.d/snippets/typescript-ts-mode" t)
+  (make-directory "~/.emacs.d/snippets/java-mode" t)
+  (make-directory "~/.emacs.d/snippets/java-ts-mode" t)
 #+end_src
 
 ** Pre-Tangle                                                       :noexport:
@@ -167,3 +169,45 @@ ${1:name}(${2:arg}: ${3:type}):${4:void} {
 # --
 import { ${2:module} } from "${1:lib}"
 #+end_src
+
+* Java (TS) Mode
+** Class Methods
+#+begin_src snippet :tangle ~/.emacs.d/snippets/java-mode/main
+  # -*- mode: snippet -*-
+  # name: main method
+  # key: main
+  # --
+
+  public static void main(String[] args) {
+      $0
+  }
+#+end_src
+#+begin_src snippet :tangle ~/.emacs.d/snippets/java-ts-mode/main
+  # -*- mode: snippet -*-
+  # name: main method
+  # key: main
+  # --
+
+  public static void main(String[] args) {
+      $0
+  }
+#+end_src
+
+** System Calls
+#+begin_src snippet :tangle ~/.emacs.d/snippets/java-mode/sout
+  # -*- mode: snippet -*-
+  # name: System Out Print Line
+  # key: sout
+  # --
+
+  System.out.println("$0");
+#+end_src
+#+begin_src snippet :tangle ~/.emacs.d/snippets/java-ts-mode/sout
+  # -*- mode: snippet -*-
+  # name: System Out Print Line
+  # key: sout
+  # --
+
+  System.out.println("$0");
+#+end_src
+

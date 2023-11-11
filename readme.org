@@ -886,6 +886,9 @@ For org source blocks, I prefer the pre-v9 syntax to expanding source blocks tha
   (add-to-list
    'org-structure-template-alist
    '("b" . "src bash"))
+  (add-to-list
+   'org-structure-template-alist
+   '("jv" . "src java"))
   (add-to-list 'org-tempo-keywords-alist '("n" . "name"))
 #+end_src
 **** Additional Source Modes
