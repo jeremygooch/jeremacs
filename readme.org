@@ -435,7 +435,13 @@ Load some basic minor modes by default
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'no-trailing-whitespace)
   (add-hook 'org-mode-hook 'flyspell-mode)
+  (add-hook 'org-mode-hook 'variable-pitch-mode)
 #+END_SRC
+
+Org tables formatting depends on fixed pitch fonts, so the follow setting overrides variable pitch just for tables.
+#+begin_src emacs-lisp
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+#+end_src
 
 **** Formatting Marks and symbols
 Show the asterisks as bullets and set up indentation
@@ -606,14 +612,7 @@ I prefer to see trailing whitespace but not for every mode (e.g. org, elfeed, et
 *** Avy
 Avy is great for speed-of-thought navigation. Only install it when needed.
 #+BEGIN_SRC emacs-lisp
-  (global-set-key
-   (kbd "M-s")
-   #'(lambda ()
-       (interactive)
-       (if (require 'avy nil 'no-error)
-           (call-interactively 'avy-goto-word-1)
-         (if (yes-or-no-p "Package Avy is not installed. Would you like Emacs to install it for you?")
-             (use-package avy :config (call-interactively 'avy-goto-word-1))))))
+  (use-package avy)
  #+END_SRC
 *** Org Mode
 Setup an easy way to jump to an org headline using org-goto =C-c C-j=

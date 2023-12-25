@@ -67,8 +67,14 @@ Setup custom minor mode so keybindings can be turned on/off easily. This is help
       ;; Navigation
       (define-key map (kbd "M-n") 'forward-paragraph)
       (define-key map (kbd "M-p") 'backward-paragraph)
+      (define-key map (kbd "M-s") #'(lambda ()
+                                      (interactive)
+                                      (if (require 'avy nil 'no-error)
+                                          (call-interactively 'avy-goto-word-1)
+                                        (if (yes-or-no-p "Package Avy is not installed. Would you like Emacs to install it for you?")
+                                            (use-package avy :config (call-interactively 'avy-goto-word-1))))))
       map)
-    "Jrm keys minor mode keyap.")
+    "Jrm keys minor mode keymap.")
 
   (define-minor-mode jrm-keys-minor-mode
     "A minor mode so that my key bindings override annoying major modes."
