@@ -814,6 +814,14 @@ Most teams/tools use an editor config in project roots. So to avoid friction wit
   ;; Getting an alist-void error when running magit commands that refresh the buffer. Narrowed down to this variable so turning off for now
   (setq magit-section-cache-visibility nil)
 #+end_src
+
+Open magit in full screen every time
+#+begin_src emacs-lisp
+  (setq magit-display-buffer-function
+        #'magit-display-buffer-fullframe-status-v1)
+  (setq magit-bury-buffer-function
+        #'magit-restore-window-configuration)
+#+end_src
 *** Edit readonly file as sudo
 Thank you [[https://www.masteringemacs.org/][mastering emacs]]!
 #+begin_src emacs-lisp
