@@ -349,7 +349,7 @@ Generic auto-complete with [[https://github.com/abo-abo/swiper][Ivy (+ counsel s
 
 **** Which Key
 Some quick help for when getting stuck in the middle of a command
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package which-key :config (which-key-mode))
 #+END_SRC
 
@@ -705,13 +705,15 @@ This config uses lsp-mode instead of eglot for better angular template support o
   (use-package lsp-mode
     :hook ((typescript-mode . lsp-mode)
            (typescript-ts-mode . lsp-mode)
-           (javascript-mode . lsp)
-           (js2-mode . lsp)
+           (javascript-mode . lsp-mode)
+           (js-mode . lsp-mode)
+           (js2-mode . lsp-mode)
            (html-mode . lsp)
            (scss-mode . lsp)
            (sass-mode . lsp)
            (css-mode . lsp)
            (web-mode . lsp)
+           (terraform-mode . lsp)
            (clojure-mode . lsp)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands lsp
@@ -723,6 +725,13 @@ This config uses lsp-mode instead of eglot for better angular template support o
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
   (use-package dap-mode)
   #+end_src
+
+#+begin_src emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.js[mx]?\\'" . js2-mode))
+  ;; Clean up the javascript-mode entry from the alist to avoid issues with overriding it
+  (delete '("\\.js[mx]?\\'" . javascript-mode) auto-mode-alist)
+#+end_src
+
 ***** Angular Server
 #+begin_src emacs-lisp
   (setq lsp-html-server-command `(,(cdr (assoc 'html-language-server jrm/custom-vars)) "--stdio"))
