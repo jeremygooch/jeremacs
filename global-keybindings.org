@@ -67,6 +67,7 @@ Setup custom minor mode so keybindings can be turned on/off easily. This is help
       ;; Navigation
       (define-key map (kbd "M-n") 'forward-paragraph)
       (define-key map (kbd "M-p") 'backward-paragraph)
+      (define-key map (kbd "C-c M-j") 'counsel-org-goto-all)
       (define-key map (kbd "M-s") #'(lambda ()
                                       (interactive)
                                       (if (require 'avy nil 'no-error)
