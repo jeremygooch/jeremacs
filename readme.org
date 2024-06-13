@@ -933,6 +933,7 @@ Load some languages by default
      (lisp . t)
      (clojure . t)
      (typescript . t)
+     (groovy . t)
      (rust . t)
      (sql . t)
      (shell . t)
