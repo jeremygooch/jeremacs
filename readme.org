@@ -623,6 +623,19 @@ Setup an easy way to jump to an org headline using org-goto =C-c C-j=
   (setq org-outline-path-complete-in-steps nil)
 #+END_SRC
 
+Simple hack ([[https://www.reddit.com/r/emacs/comments/1ds3aoy/anyone_else_occasionally_experience_being_unable/][found on redit]]) to ensure you can expand a heading even if the cursor is on the ellipses after a collapsed heading:
+#+begin_src emacs-lisp
+(defun my-org-prepare-expand-heading ()
+  "Move point to before ellipsis, if after ellipsis."
+  (when (and (not (org-at-heading-p))
+             (save-excursion
+               (org-end-of-line)
+               (org-at-heading-p)))
+    (org-end-of-line)))
+
+(add-hook 'org-tab-first-hook #'my-org-prepare-expand-heading)
+#+end_src
+
 ** File Editing
 *** File Backups
  Keep temporary and backup buffers out of current directory like a civilized editor.
