@@ -469,7 +469,11 @@ Show lists with a bullet rather than the =-= character.
   :height 0.9))))
      '(org-block-end-line ((t (:extend t :background "#191d27" :foreground "#617776" :height 0.9)))))
 #+end_src
-
+**** Turn off automatic actual width for inline images
+This is helpful so images can be easily resized inline with org attributes
+#+begin_src emacs-lisp
+(setq org-image-actual-width nil)
+#+end_src
 **** Additional Export Backends
 ***** Markdown
 #+begin_src emacs-lisp
