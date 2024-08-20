@@ -720,24 +720,33 @@ Disable bidirectional editing for performance issues when opening large files.
 This config uses lsp-mode instead of eglot for better angular template support out of the box. 
 #+begin_src emacs-lisp
   (use-package lsp-mode
-    :hook ((typescript-mode . lsp-mode)
-           (typescript-ts-mode . lsp-mode)
-           (javascript-mode . lsp-mode)
-           (js-mode . lsp-mode)
-           (js2-mode . lsp-mode)
-           (html-mode . lsp)
-           (scss-mode . lsp)
-           (sass-mode . lsp)
-           (css-mode . lsp)
-           (web-mode . lsp)
-           (terraform-mode . lsp)
-           (clojure-mode . lsp)
+    ;; :hook ((typescript-mode . lsp-mode)
+    ;;        (typescript-ts-mode . lsp-mode)
+    ;;        (javascript-mode . lsp-mode)
+    ;;        (js-mode . lsp-mode)
+    ;;        (js2-mode . lsp-mode)
+    ;;        (html-mode . lsp)
+    ;;        (scss-mode . lsp)
+    ;;        (sass-mode . lsp)
+    ;;        (css-mode . lsp)
+    ;;        (web-mode . lsp)
+    ;;        (terraform-mode . lsp)
+    ;;        (clojure-mode . lsp)
+    ;;        (lsp-mode . lsp-enable-which-key-integration))
+    :hook ((prog-mode . lsp-deferred)
            (lsp-mode . lsp-enable-which-key-integration))
+    :custom
+    (read-processs-output-max (* 1024 1024))
     :commands lsp
     :bind (("M-." . lsp-find-definition))
-    :config (setq lsp-idle-delay 1))
+    :config (setq lsp-idle-delay 1)
+    :init
+    (setq lsp-keymap-prefix "C-c")
+    (setq lsp-diagnostics-provider :flycheck))
 
-  (use-package lsp-ui :commands lsp-ui-mode)
+  (use-package lsp-ui
+    :commands lsp-ui-mode
+    :hook (lsp-mode . lsp-ui-mode))
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
   (use-package dap-mode)
@@ -780,16 +789,23 @@ This config uses lsp-mode instead of eglot for better angular template support o
 #+end_src
 **** Inline Compilation Errors with Flycheck
 #+begin_src emacs-lisp
-(use-package flycheck :diminish flycheck-mode)
+  (use-package flycheck
+    :diminish flycheck-mode
+    :init
+    (setq flycheck-javascript-eslint-executable "eslint_d")
+    :hook (lsp-mode . flycheck-mode)
+    :custom (flycheck-display-error-delay .3))
 #+end_src
 **** TreeSitter
 Auto install treesitter sources if they're not present
 #+begin_src emacs-lisp
   (use-package treesit-auto
+    :custom
+    (treesit-auto-install 'prompt)
     :config
-    (global-treesit-auto-mode)
-    :config
-    (setq treesit-auto-install 'prompt))
+    (setq treesit-auto-langs '(javascript typescript tsx css html))
+    (treesit-auto-add-to-auto-mode-alist '(javascript typescript tsx css html))
+    (global-treesit-auto-mode))
 #+end_src
 
 **** Lisps
