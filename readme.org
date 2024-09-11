@@ -1006,6 +1006,31 @@ Show any latex previews by default
   (custom-set-variables '(org-startup-with-latex-preview t))
 #+end_src
 
+
+** Project Management with Project.el
+
+*** Killing project buffers
+I like to keep the magit buffer open when closing all project files
+#+begin_src emacs-lisp
+  (setq project-kill-buffer-conditions '(buffer-file-name
+   (and
+    (major-mode . fundamental-mode)
+    "\\`[^ ]")
+   (and
+    (derived-mode . special-mode)
+    (not
+     (major-mode . help-mode))
+    (not
+     (major-mode . magit-status-mode))
+    (not
+     (derived-mode . gnus-mode)))
+   (derived-mode . compilation-mode)
+   (derived-mode . dired-mode)
+   (derived-mode . diff-mode)
+   (derived-mode . comint-mode)
+   (derived-mode . eshell-mode)
+   (derived-mode . change-log-mode)))
+#+end_src
 ** Load Additional Configs
 Load additional configs based on file name patterns
 #+begin_src emacs-lisp
