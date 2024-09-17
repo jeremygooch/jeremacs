@@ -61,6 +61,17 @@ Adjust the local mark ring pop key sequence, so after pressing `C-u C-SPC`, you 
 * Priority Keys
 Setup custom minor mode so keybindings can be turned on/off easily. This is helpful as some major modes want to use these keybindings but I would rather have them bound to custom functions by default, but =global-set-key= doesn't take priority when a major mode specifies custom bindings. See: https://stackoverflow.com/questions/683425/globally-override-key-binding-in-emacs
 #+begin_src emacs-lisp
+  (defun jrm/avy-dwim (&optional arg)
+    "Install avy if missing, otherwise call goto-word or goto-char-timer if argument is provided"
+    (interactive "P")
+    (if (require 'avy nil 'no-error)
+        (if arg
+            (call-interactively 'avy-goto-char-timer)
+          (call-interactively 'avy-goto-word-1))
+      (if (yes-or-no-p "Package Avy is not installed. Would you like Emacs to install it for you?")
+          (use-package avy :config (if arg (call-interactively 'avy-goto-char-timer)
+                                     (call-interactively 'avy-goto-word-1))))))
+
   (defvar jrm-keys-minor-mode-map
     (let ((map (make-sparse-keymap)))
 
@@ -68,12 +79,7 @@ Setup custom minor mode so keybindings can be turned on/off easily. This is help
       (define-key map (kbd "M-n") 'forward-paragraph)
       (define-key map (kbd "M-p") 'backward-paragraph)
       (define-key map (kbd "C-c M-j") 'counsel-org-goto-all)
-      (define-key map (kbd "M-s") #'(lambda ()
-                                      (interactive)
-                                      (if (require 'avy nil 'no-error)
-                                          (call-interactively 'avy-goto-word-1)
-                                        (if (yes-or-no-p "Package Avy is not installed. Would you like Emacs to install it for you?")
-                                            (use-package avy :config (call-interactively 'avy-goto-word-1))))))
+      (define-key map (kbd "M-s") 'jrm/avy-dwim)
       map)
     "Jrm keys minor mode keymap.")
 
