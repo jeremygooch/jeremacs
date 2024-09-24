@@ -6,7 +6,7 @@
 :END:
 
 * VTerm
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package vterm)
   ;; for some reason, using a setq or the :config or :custom keyword in
   ;; use-package does not set the variable correctly for
@@ -18,3 +18,9 @@
 #+end_src
 
 
+* Magit Todos
+#+begin_src emacs-lisp
+(use-package magit-todos
+  :after magit
+  :config (magit-todos-mode 1))
+#+end_src
