@@ -438,11 +438,6 @@ Load some basic minor modes by default
   (add-hook 'org-mode-hook 'variable-pitch-mode)
 #+END_SRC
 
-Org tables formatting depends on fixed pitch fonts, so the follow setting overrides variable pitch just for tables.
-#+begin_src emacs-lisp
-  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
-#+end_src
-
 **** Formatting Marks and symbols
 Show the asterisks as bullets and set up indentation
 #+BEGIN_SRC emacs-lisp
@@ -488,6 +483,11 @@ Helpful utility using pandoc as the backend for converting markdown back to org 
     (shell-command-on-region (point-min) (point-max)
                              (format "pandoc -f markdown -t org -o %s"
                                      (concat (file-name-sans-extension (buffer-file-name)) ".org"))))
+#+end_src
+**** Additional Font Settings
+Org tables formatting depends on fixed pitch fonts, so the follow setting overrides variable pitch just for tables.
+#+begin_src emacs-lisp
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
 #+end_src
 
 *** Glyphs/Symbols/Ligatures for common words/expressions
