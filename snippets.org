@@ -15,6 +15,7 @@ Evaluate the source block in [[Setup Directory Structure][Setup Directory Struct
   (make-directory "~/.emacs.d/snippets/css-mode" t)
   (make-directory "~/.emacs.d/snippets/text-mode" t)
   (make-directory "~/.emacs.d/snippets/typescript-ts-mode" t)
+  (make-directory "~/.emacs.d/snippets/tsx-ts-mode" t)
   (make-directory "~/.emacs.d/snippets/java-mode" t)
   (make-directory "~/.emacs.d/snippets/java-ts-mode" t)
 #+end_src
@@ -168,6 +169,10 @@ ${1:name}(${2:arg}: ${3:type}):${4:void} {
 # uuid: import
 # --
 import { ${2:module} } from "${1:lib}"
+#+end_src
+** tsx-ts-mode
+#+begin_src snippet :tangle ~/.emacs.d/snippets/tsx-ts-mode/.yas-parents
+typescript-ts-mode
 #+end_src
 
 * Java (TS) Mode
