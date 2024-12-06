@@ -19,7 +19,7 @@
 
 
 * Magit Todos
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package magit-todos
   :after magit
   :config (magit-todos-mode 1))

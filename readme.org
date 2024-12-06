@@ -326,13 +326,16 @@ Generic auto-complete with [[https://github.com/abo-abo/swiper][Ivy (+ counsel s
      :diminish ivy-mode
      :config
      (setq ivy-use-virtual-buffers t
-	   ivy-count-format "%d/%d ")
+           ivy-count-format "%d/%d ")
      (global-set-key (kbd "C-x b") 'ivy-switch-buffer))
    (ivy-mode 1)
    (setq ivy-use-selectable-prompt t)
 
    (use-package ivy-prescient
-     :config (ivy-prescient-mode))
+     :init
+     (setq prescient-use-char-folding nil) ;; helps with regexp too big errors for long paths
+     :config
+     (ivy-prescient-mode))
  #+END_SRC
 
  Ivy enhanced search (swiper) and common Emacs meta commands (counsel)
