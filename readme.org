@@ -442,29 +442,28 @@ Load some basic minor modes by default
 #+END_SRC
 
 **** Formatting Marks and symbols
-Show the asterisks as bullets and set up indentation
+Org Modern provides solid prettifying of org buffers
 #+BEGIN_SRC emacs-lisp
-  (use-package org-bullets :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
   (add-hook 'org-mode-hook 'org-indent-mode)
+  (use-package org-modern
+    :init
+    (setq org-modern-fold-stars
+	  '(("▶" . "⏷")
+	    ("▷" . "▽") ;; this was borked on the initial install, so just copy the previous level's value
+	    ("⏵" . "⏷")
+	    ("▸" . "▾")
+	    ("▹" . "▿")
+	    ))
+    :config
+    ;; (custom-set-faces '(org-modern-date-active ((t (:extend t :background "unspecified" :foreground "unspecified")))))
+    (with-eval-after-load 'org (global-org-modern-mode)))
 #+END_SRC
 
-Hide formatting characters
-#+begin_src emacs-lisp
-  (setq org-hide-emphasis-markers t)
-#+end_src
-
-Show lists with a bullet rather than the =-= character.
-#+begin_src emacs-lisp
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-#+end_src
 **** Source Blocks
 #+begin_src emacs-lisp
     (custom-set-faces
      '(org-block ((t (:inherit shadow :extend t :background "#202531"))))
-     '(org-block-begin-line ((t (:extend t :background "#191d27" :foreground "#617776" 
-  :height 0.9))))
+     '(org-block-begin-line ((t (:extend t :background "#191d27" :foreground "#617776" :height 0.9))))
      '(org-block-end-line ((t (:extend t :background "#191d27" :foreground "#617776" :height 0.9)))))
 #+end_src
 **** Turn off automatic actual width for inline images
