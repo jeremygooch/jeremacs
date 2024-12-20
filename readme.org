@@ -459,6 +459,11 @@ Org Modern provides solid prettifying of org buffers
     (with-eval-after-load 'org (global-org-modern-mode)))
 #+END_SRC
 
+Hide formatting characters
+#+begin_src emacs-lisp
+  (setq org-hide-emphasis-markers t)
+#+end_src
+
 **** Source Blocks
 #+begin_src emacs-lisp
     (custom-set-faces
