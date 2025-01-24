@@ -87,6 +87,9 @@ In Emacs >= 27.1, the early-init.el file is run before the GUI is created. This 
   (setq inhibit-compacting-font-caches t)
   ;; Slow down the UI updates a bit
   (setq idle-update-delay 1.0)
+
+  ;; LSP performance improvements
+  (setenv "LSP_USE_PLISTS" "true")
 #+end_src
 
 *** Personal Information
