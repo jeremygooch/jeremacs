@@ -67,7 +67,7 @@ In Emacs >= 27.1, the early-init.el file is run before the GUI is created. This 
 
   ;; Garbage Collections
   (setq gc-cons-threshold 100000000) ;; ~100mb
-  (setq read-process-output-max 100000000) ;; ~100mb
+  (setq read-process-output-max 3000000) ;; ~3mb
   (setq gc-cons-percentage 0.6)
 
   ;; Compile Warnings
