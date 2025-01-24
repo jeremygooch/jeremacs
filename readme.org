@@ -45,10 +45,10 @@ Update the following variables to match your setup.
 #+begin_src emacs-lisp :tangle no
   (setq jrm/custom-vars
         '((path-to-here . "/Users/jeremygooch/src/jeremacs/")
-          (node . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/")
-          (html-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/bin/html-languageserver")
-          (angular-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules/@angular/language-server")
-          (global-node-modules . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules")
+          (node . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/")
+          (html-language-server . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/bin/vscode-html-language-server")
+            (angular-language-server . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/bin/ngserver")
+          (global-node-modules . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/lib/node_modules")
           (name . "Jeremy Gooch")
           (email . "jeremy.gooch@gmail.com")))
 #+end_src
@@ -67,7 +67,7 @@ In Emacs >= 27.1, the early-init.el file is run before the GUI is created. This 
 
   ;; Garbage Collections
   (setq gc-cons-threshold 100000000) ;; ~100mb
-  (setq read-process-output-max 3000000) ;; ~3mb
+  (setq read-process-output-max 100000000) ;; ~100mb
   (setq gc-cons-percentage 0.6)
 
   ;; Compile Warnings
@@ -140,6 +140,11 @@ For the sake of completeness, configure name and email address
   (use-package use-package-ensure-system-package :ensure t)
   #+END_SRC
 
+DEBUGGING ONLY
+#+begin_src emacs-lisp
+(setq use-package-compute-statistics t)
+#+end_src
+  
 *** Better Garbage Collection Strategy
 
 #+begin_src emacs-lisp
@@ -161,19 +166,26 @@ Ensure environment variables inside Emacs look the same as in the standard shell
 #+BEGIN_SRC emacs-lisp :tangle (if (string-equal system-type "darwin") "~/.emacs.d/init.el" "no")
   (setq exec-path (append exec-path '("/usr/local/bin")))
   (use-package exec-path-from-shell
-    :init
+    :config
     (exec-path-from-shell-initialize))
 #+END_SRC
 
 Set custom exec path for git and node
 #+BEGIN_SRC emacs-lisp
   (setq exec-path (append exec-path '("/usr/local/git/bin")))
+  (setq exec-path (append exec-path '("/Users/jeremygooch/.sdkman/candidates/java/11.0.16-zulu/bin")))
+  (setq exec-path (append exec-path '("/Users/jeremygooch/.sdkman/candidates/groovy/4.0.5/bin")))
   (setq exec-path (append exec-path (list (concat (cdr (assoc 'node jrm/custom-vars)) "bin/"))))
 #+END_SRC
 
 Ensure node is on path
 #+BEGIN_SRC emacs-lisp
   (setenv "PATH" (concat (getenv "PATH") (concat ":" (cdr (assoc 'node jrm/custom-vars)) "bin/")))
+
+  ;; (setenv "PATH" "/Users/jeremygooch/.sdkman/candidates/java/11.0.16-zulu/bin")
+  ;; (setenv "PATH" "/Users/jeremygooch/.sdkman/candidates/groovy/4.0.5/bin")
+  (setenv "JAVA_HOME" "/Library/Java/JavaVirtualMachines/jdk-14.0.2.jdk/Contents/Home")
+
 #+END_SRC
 
 ** Interface
@@ -239,10 +251,15 @@ When a file changes on disk, automatically reload its buffer silently
 (global-prettify-symbols-mode 1)
 #+end_src
 *** Dired
-**** Layout
+**** General Utility
 Default dired flags (uses =ls= style syntax)
 #+begin_src emacs-lisp
 (setq dired-listing-switches "-alh")
+#+end_src
+
+Rename file and register with version control by default
+#+begin_src emacs-lisp
+(setq dired-vc-rename-file t)
 #+end_src
 
 **** Icons & Subfolders
@@ -264,6 +281,7 @@ See child folders without having to open child in a new buffer. Always refresh t
 Look and feel
 #+begin_src emacs-lisp
   (use-package all-the-icons-dired
+    :defer t
     :config (unless (member "all-the-icons" (font-family-list)) (all-the-icons-install-fonts t)))
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 #+end_src
@@ -274,6 +292,7 @@ Allow uncompressing zip files
      '(add-to-list 'dired-compress-file-suffixes 
 		   '("\\.zip\\'" ".zip" "unzip")))
 #+end_src
+
 *** IBuffer
 Add a little organization to the default ibuffer view
 #+BEGIN_SRC emacs-lisp
@@ -438,6 +457,7 @@ Load some basic minor modes by default
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'no-trailing-whitespace)
   (add-hook 'org-mode-hook 'flyspell-mode)
+  (setq flyspell-issue-message-flag nil)
   (add-hook 'org-mode-hook 'variable-pitch-mode)
 #+END_SRC
 
@@ -448,12 +468,12 @@ Org Modern provides solid prettifying of org buffers
   (use-package org-modern
     :init
     (setq org-modern-fold-stars
-	  '(("▶" . "⏷")
-	    ("▷" . "▽") ;; this was borked on the initial install, so just copy the previous level's value
-	    ("⏵" . "⏷")
-	    ("▸" . "▾")
-	    ("▹" . "▿")
-	    ))
+          '(("▶" . "⏷")
+            ("▷" . "▽") ;; this was borked on the initial install, so just copy the previous level's value
+            ("⏵" . "⏷")
+            ("▸" . "▾")
+            ("▹" . "▿")
+            ))
     :config
     ;; (custom-set-faces '(org-modern-date-active ((t (:extend t :background "unspecified" :foreground "unspecified")))))
     (with-eval-after-load 'org (global-org-modern-mode)))
@@ -601,7 +621,7 @@ I prefer to see trailing whitespace but not for every mode (e.g. org, elfeed, et
 #+end_src
 *** Frame
 **** Fullscreen
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (set-frame-parameter nil 'fullscreen 'fullboth)
 #+end_src
 **** Border for Mac
@@ -674,10 +694,12 @@ Disable bidirectional editing for performance issues when opening large files.
 **** HTML/(S)CSS
 #+begin_src emacs-lisp
   (use-package sass-mode
+    :defer t
     :config
     (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode)))
 
   (use-package web-mode
+    :defer t
     :config
     (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
@@ -705,6 +727,7 @@ Disable bidirectional editing for performance issues when opening large files.
 **** PHP
 #+BEGIN_SRC emacs-lisp
   (use-package php-mode
+    :defer t
     :config
     (autoload 'php-mode "php-mode-improved" "Major mode for editing php code." t)
     (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
@@ -727,19 +750,6 @@ Disable bidirectional editing for performance issues when opening large files.
 This config uses lsp-mode instead of eglot for better angular template support out of the box. 
 #+begin_src emacs-lisp
   (use-package lsp-mode
-    ;; :hook ((typescript-mode . lsp-mode)
-    ;;        (typescript-ts-mode . lsp-mode)
-    ;;        (javascript-mode . lsp-mode)
-    ;;        (js-mode . lsp-mode)
-    ;;        (js2-mode . lsp-mode)
-    ;;        (html-mode . lsp)
-    ;;        (scss-mode . lsp)
-    ;;        (sass-mode . lsp)
-    ;;        (css-mode . lsp)
-    ;;        (web-mode . lsp)
-    ;;        (terraform-mode . lsp)
-    ;;        (clojure-mode . lsp)
-    ;;        (lsp-mode . lsp-enable-which-key-integration))
     :hook ((prog-mode . lsp-deferred)
            (lsp-mode . lsp-enable-which-key-integration))
     :custom
@@ -756,18 +766,27 @@ This config uses lsp-mode instead of eglot for better angular template support o
     :hook (lsp-mode . lsp-ui-mode))
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-  (use-package dap-mode)
+  (use-package dap-mode :defer t)
   #+end_src
 
 #+begin_src emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.js[mx]?\\'" . js2-mode))
   ;; Clean up the javascript-mode entry from the alist to avoid issues with overriding it
   (delete '("\\.js[mx]?\\'" . javascript-mode) auto-mode-alist)
+  (delete '("\\.js\\'" . javascript-mode) auto-mode-alist)
+
+  (add-to-list 'auto-mode-alist '("\\.js[mx]?\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+#+end_src
+
+Override the default =M-.= keybinding from lsp-find-definition to use the lsp-ui version for js2 mode. Seems to work better for js only projects.
+#+begin_src emacs-lisp
+  (with-eval-after-load 'js2-mode
+    (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions))
 #+end_src
 
 ***** Angular Server
 #+begin_src emacs-lisp
-  (setq lsp-html-server-command `(,(cdr (assoc 'html-language-server jrm/custom-vars)) "--stdio"))
+  ;; (setq lsp-html-server-command `(,(cdr (assoc 'html-language-server jrm/custom-vars)) "--stdio"))
   (setq lsp-clients-angular-language-server-command
         `("node"
           ,(cdr (assoc 'angular-language-server jrm/custom-vars))
@@ -776,6 +795,46 @@ This config uses lsp-mode instead of eglot for better angular template support o
           "--tsProbeLocations"
           ,(cdr (assoc 'global-node-modules jrm/custom-vars))
           "--stdio"))
+#+end_src
+
+***** LSP Booster
+#+begin_src emacs-lisp :tangle (if (string-equal system-type "darwin") "~/.emacs.d/init.el" "no")
+  ;; LSP booster on mac has to be compiled from source due to lack of proper code signing: https://github.com/blahgeek/emacs-lsp-booster?tab=readme-ov-file#obtain-or-build-emacs-lsp-booster
+  ;; Point to the binary build from src instead
+  (add-to-list 'exec-path "/Users/jeremygooch/src/emacs-lsp-booster/target/release/")
+#+end_src
+
+#+begin_src emacs-lisp
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
+            (setcar orig-result command-from-exec-path))
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 #+end_src
 ***** Autocomplete with Company
 #+begin_src emacs-lisp
@@ -794,6 +853,11 @@ This config uses lsp-mode instead of eglot for better angular template support o
   (use-package company-box
     :hook (company-mode . company-box-mode))
 #+end_src
+***** Javascript General
+#+begin_src emacs-lisp :tangle no
+(with-eval-after-load 'js
+  (define-key js-mode-map (kbd "M-.") nil))
+#+end_src
 **** Inline Compilation Errors with Flycheck
 #+begin_src emacs-lisp
   (use-package flycheck
@@ -805,7 +869,7 @@ This config uses lsp-mode instead of eglot for better angular template support o
 #+end_src
 **** TreeSitter
 Auto install treesitter sources if they're not present
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package treesit-auto
     :custom
     (treesit-auto-install 'prompt)
@@ -856,6 +920,7 @@ Most teams/tools use an editor config in project roots. So to avoid friction wit
 *** Advanced Version Control with Magit
 #+begin_src emacs-lisp
   (use-package magit
+    :defer t
     :config
     (global-set-key (kbd "C-x g") 'magit-status)
     (add-hook 'magit-status-sections-hook 'magit-insert-stashes))
@@ -965,7 +1030,7 @@ For org source blocks, I prefer the pre-v9 syntax to expanding source blocks tha
 Load some languages by default
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'org-src-lang-modes '("js" . "javascript")
-	       '("php" . "php"))
+               '("php" . "php"))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
@@ -1029,6 +1094,8 @@ I like to keep the magit buffer open when closing all project files
      (major-mode . help-mode))
     (not
      (major-mode . magit-status-mode))
+    (not
+     (major-mode . shell-mode))
     (not
      (derived-mode . gnus-mode)))
    (derived-mode . compilation-mode)
