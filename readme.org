@@ -932,6 +932,10 @@ Most teams/tools use an editor config in project roots. So to avoid friction wit
   (setq magit-section-cache-visibility nil)
 #+end_src
 
+#+begin_src emacs-lisp :tangle (if (string-equal system-type "darwin") "~/.emacs.d/init.el" "no")
+  (setq magit-git-executable "/Applications/Xcode.app/Contents/Developer/usr/bin/git")
+#+end_src
+
 Open magit in full screen every time
 #+begin_src emacs-lisp
   (setq magit-display-buffer-function
