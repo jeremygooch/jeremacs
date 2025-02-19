@@ -45,10 +45,10 @@ Update the following variables to match your setup.
 #+begin_src emacs-lisp :tangle no
   (setq jrm/custom-vars
         '((path-to-here . "/Users/jeremygooch/src/jeremacs/")
-          (node . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/")
-          (html-language-server . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/bin/vscode-html-language-server")
-            (angular-language-server . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/bin/ngserver")
-          (global-node-modules . "/Users/jeremygooch/.nvm/versions/node/v20.10.0/lib/node_modules")
+          (node . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/")
+          (html-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/bin/html-languageserver")
+          (angular-language-server . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules/@angular/language-server")
+          (global-node-modules . "/Users/jeremygooch/.nvm/versions/node/v19.9.0/lib/node_modules")
           (name . "Jeremy Gooch")
           (email . "jeremy.gooch@gmail.com")))
 #+end_src
@@ -143,11 +143,6 @@ For the sake of completeness, configure name and email address
   (use-package use-package-ensure-system-package :ensure t)
   #+END_SRC
 
-DEBUGGING ONLY
-#+begin_src emacs-lisp
-(setq use-package-compute-statistics t)
-#+end_src
-  
 *** Better Garbage Collection Strategy
 
 #+begin_src emacs-lisp
@@ -471,12 +466,12 @@ Org Modern provides solid prettifying of org buffers
   (use-package org-modern
     :init
     (setq org-modern-fold-stars
-          '(("▶" . "⏷")
-            ("▷" . "▽") ;; this was borked on the initial install, so just copy the previous level's value
-            ("⏵" . "⏷")
-            ("▸" . "▾")
-            ("▹" . "▿")
-            ))
+	  '(("▶" . "⏷")
+	    ("▷" . "▽") ;; this was borked on the initial install, so just copy the previous level's value
+	    ("⏵" . "⏷")
+	    ("▸" . "▾")
+	    ("▹" . "▿")
+	    ))
     :config
     ;; (custom-set-faces '(org-modern-date-active ((t (:extend t :background "unspecified" :foreground "unspecified")))))
     (with-eval-after-load 'org (global-org-modern-mode)))
