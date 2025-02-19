@@ -88,6 +88,8 @@ Setup custom minor mode so keybindings can be turned on/off easily. This is help
     :init-value t
     :lighter " jrm-keys")
   (jrm-keys-minor-mode 1)
+  (add-hook 'shell-mode-hook (lambda () (jrm-keys-minor-mode -1)))
+  (add-hook 'text-mode-hook (lambda () (jrm-keys-minor-mode -1)))
 
   ;; Don't show minor mode in minibuffer
   (defun jrm-minibuffer-setup-hook ()
