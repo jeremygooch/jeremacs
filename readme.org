@@ -765,6 +765,9 @@ This config uses lsp-mode instead of eglot for better angular template support o
   (use-package helm-lsp :commands helm-lsp-workspace-symbol)
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
   (use-package dap-mode :defer t)
+
+  ;; turn off problematic modes
+  (setq lsp-disabled-clients '(semgrep-ls))
   #+end_src
 
 #+begin_src emacs-lisp
