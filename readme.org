@@ -781,6 +781,7 @@ This config uses lsp-mode instead of eglot for better angular template support o
 
 Override the default =M-.= keybinding from lsp-find-definition to use the lsp-ui version for js2 mode. Seems to work better for js only projects.
 #+begin_src emacs-lisp
+  (use-package js2-mode)
   (with-eval-after-load 'js2-mode
     (define-key js2-mode-map (kbd "M-.") 'lsp-ui-peek-find-definitions))
 #+end_src
@@ -931,7 +932,8 @@ Most teams/tools use an editor config in project roots. So to avoid friction wit
 #+end_src
 
 #+begin_src emacs-lisp :tangle (if (string-equal system-type "darwin") "~/.emacs.d/init.el" "no")
-  (setq magit-git-executable "/Applications/Xcode.app/Contents/Developer/usr/bin/git")
+  ;; (setq magit-git-executable "/Applications/Xcode.app/Contents/Developer/usr/bin/git")
+  (setq magit-git-executable "/usr/bin/git")
 #+end_src
 
 Open magit in full screen every time
