@@ -223,6 +223,14 @@ Remove default scrollbars and toolbars.
   (menu-bar-mode -1)
   (tool-bar-mode -1)
 #+end_src
+
+Adjust the automatic scrolling
+#+begin_src emacs-lisp
+(setq scroll-conservatively 10
+      scroll-margin 25
+      maximum-scroll-margin .3)
+#+end_src
+
 **** Buffers
 Remember where I left off after killing a file
 #+begin_src emacs-lisp
@@ -859,6 +867,11 @@ Override the default =M-.= keybinding from lsp-find-definition to use the lsp-ui
 (with-eval-after-load 'js
   (define-key js-mode-map (kbd "M-.") nil))
 #+end_src
+***** Golang
+#+begin_src emacs-lisp
+  (use-package go-mode)
+  (setq lsp-go-gopls-server-path "~/go/bin/gopls")
+#+end_src
 **** Inline Compilation Errors with Flycheck
 #+begin_src emacs-lisp
   (use-package flycheck
@@ -1023,6 +1036,7 @@ For org source blocks, I prefer the pre-v9 syntax to expanding source blocks tha
    (use-package ox-twbs)
    (use-package ob-rust)
    (use-package ob-restclient)
+   (use-package ob-go)
    (require 'ob-clojure)
    (use-package ob-typescript :diminish typescript-mode)
  #+END_SRC
@@ -1042,6 +1056,7 @@ Load some languages by default
      (js . t)
      (lisp . t)
      (clojure . t)
+     (go . t)
      (typescript . t)
      (groovy . t)
      (rust . t)
