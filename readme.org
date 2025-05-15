@@ -951,13 +951,8 @@ Paredit is pretty much mandatory for me these days when writing in a lisp dialec
 By default, code folding is bound to =C-<return>=.
 #+begin_src emacs-lisp
   (use-package yafolding
-    :hook ((js-mode . yafolding-mode)
-           (js2-mode . yafolding-mode)
-           (css-mode . yafolding-mode)
-           (scss-mode . yafolding-mode)
-           (typescript-mode . yafolding-mode)
-           (typescript-ts-mode . yafolding-mode)
-           (fundamental-mode . yafolding-mode)))
+    :hook ((prog-mode . yafolding-mode)
+  	 (fundamental-mode . yafolding-mode)))
 #+end_src
 **** Yaml
 #+begin_src emacs-lisp
