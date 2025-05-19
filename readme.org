@@ -212,9 +212,11 @@ Fix emacs' regex
   (setq-default pcre-mode t)
 #+END_SRC
 **** Spellcheck
-Use aspell for Mac (aspell can be installed with brew)
+Use aspell for Mac. =aspell= can be installed with mac ports:
+- =sudo port install aspell=
+- =sudo port install aspell-dict-en= (for installing the english dictionary)
 #+BEGIN_SRC emacs-lisp :tangle (if (string-equal system-type "darwin") "~/.emacs.d/init.el" "no")
-    (setq ispell-program-name "/usr/local/bin/aspell")
+  (setq ispell-program-name "/opt/local/bin/aspell")
 #+END_SRC
 **** Scrollbars and Toolbars
 Remove default scrollbars and toolbars.
