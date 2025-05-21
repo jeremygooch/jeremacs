@@ -716,7 +716,14 @@ Simple hack ([[https://www.reddit.com/r/emacs/comments/1ds3aoy/anyone_else_occas
 
 (add-hook 'org-tab-first-hook #'my-org-prepare-expand-heading)
 #+end_src
-
+**** Org TOC
+I frequently add org files as GH readmes or gists where having a TOC is helpful. org-toc helps with that:
+#+begin_src emacs-lisp
+(use-package toc-org
+  :config (if (require 'toc-org nil t)
+	      (progn (add-hook 'org-mode-hook 'toc-org-mode))))
+#+end_src
+This will generate a new TOC on save for any headline with a relevant :toc: tag. More info: https://github.com/snosov1/toc-org?tab=readme-ov-file#use
 ** File Editing
 *** File Backups
  Keep temporary and backup buffers out of current directory like a civilized editor.
