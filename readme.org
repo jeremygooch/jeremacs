@@ -919,11 +919,25 @@ Override the default =M-.= keybinding from lsp-find-definition to use the lsp-ui
 (with-eval-after-load 'js
   (define-key js-mode-map (kbd "M-.") nil))
 #+end_src
+***** Dape
+#+begin_src emacs-lisp
+  (use-package dape
+    :config
+    ;; Pulse source line (performance hit)
+    (add-hook 'dape-display-source-hook 'pulse-momentary-highlight-one-line)
+
+    ;;  To not display info/buffers on startup
+    ;; (remove-hook 'dape-start-hook 'dape-info)
+    (add-hook 'dape-start-hook 'dape-repl))
+#+end_src
 ***** Golang
 #+begin_src emacs-lisp
-  (use-package go-mode)
-  (setq lsp-go-gopls-server-path "~/go/bin/gopls")
-  (add-hook 'before-save-hook #'gofmt-before-save)
+  (use-package go-mode
+    :custom
+    (gofmt-command "/Users/jeremygooch/go/bin/goimports")
+    :config
+    (setq lsp-go-gopls-server-path "~/go/bin/gopls")
+    :hook ((before-save . gofmt-before-save)))
 #+end_src
 **** Inline Compilation Errors with Flycheck
 #+begin_src emacs-lisp
