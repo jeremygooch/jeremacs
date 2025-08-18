@@ -1087,6 +1087,9 @@ For org source blocks, I prefer the pre-v9 syntax to expanding source blocks tha
    '("el" . "src emacs-lisp"))
   (add-to-list
    'org-structure-template-alist
+   '("g" . "src go :imports :exports both value"))
+  (add-to-list
+   'org-structure-template-alist
    '("b" . "src bash"))
   (add-to-list
    'org-structure-template-alist
