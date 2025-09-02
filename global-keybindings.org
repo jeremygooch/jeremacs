@@ -53,6 +53,11 @@ For some reason, using a setq or the :config or :custom keyword in  use-package 
    '(vterm-keymap-exceptions (push "C-o" vterm-keymap-exceptions)))
   (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 #+end_src
+* LSP
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-j >") 'lsp-ui-doc-show)
+(global-set-key (kbd "C-x C-j <") 'lsp-ui-doc-hide)
+#+end_src
 * Mark ring
 Adjust the local mark ring pop key sequence, so after pressing `C-u C-SPC`, you can just press `C-SPC` to keep jumping.
 #+BEGIN_SRC emacs-lisp
