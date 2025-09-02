@@ -18,6 +18,7 @@ Evaluate the source block in [[Setup Directory Structure][Setup Directory Struct
   (make-directory "~/.emacs.d/snippets/tsx-ts-mode" t)
   (make-directory "~/.emacs.d/snippets/java-mode" t)
   (make-directory "~/.emacs.d/snippets/java-ts-mode" t)
+  (make-directory "~/.emacs.d/snippets/go-mode" t)
 #+end_src
 
 ** Pre-Tangle                                                       :noexport:
@@ -216,3 +217,41 @@ typescript-mode
   System.out.println("$0");
 #+end_src
 
+* Golang
+** Comments
+#+begin_src snippet :tangle ~/.emacs.d/snippets/go-mode/com
+# -*- mode: snippet -*-
+# name: comment (/* ... */)
+# --
+/**
+ * $0
+ */
+#+end_src
+
+** Print Statements
+#+begin_src snippet :tangle ~/.emacs.d/snippets/go-mode/fpl
+# -*- mode: snippet -*-
+# name: fmt println duplicate
+# key: fpl
+# --
+
+fmt.Println("$1", ${1:value})$0
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/snippets/go-mode/fpf
+# -*- mode: snippet -*-
+# name: fmt printf duplicate
+# key: fpf
+# --
+
+fmt.Printf("$1", ${1:value})$0
+#+end_src
+
+#+begin_src snippet :tangle ~/.emacs.d/snippets/go-mode/fp
+# -*- mode: snippet -*-
+# name: fmt println
+# key: fp
+# --
+
+fmt.Println("$1")$0
+#+end_src
