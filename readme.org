@@ -826,16 +826,21 @@ This config uses lsp-mode instead of eglot for better angular template support o
   (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
   (use-package dap-mode :defer t)
 
-  ;; turn off problematic modes
-  (setq lsp-disabled-clients '(semgrep-ls))
   #+end_src
 
+Fix annoying ui features
+#+begin_src emacs-lisp
+  ;; turn off problematic modes
+  (setq lsp-disabled-clients '(semgrep-ls))
+  (setq lsp-ui-doc-enable nil)
+#+end_src
+  
 #+begin_src emacs-lisp
   ;; Clean up the javascript-mode entry from the alist to avoid issues with overriding it
   (delete '("\\.js[mx]?\\'" . javascript-mode) auto-mode-alist)
   (delete '("\\.js\\'" . javascript-mode) auto-mode-alist)
 
-  (add-to-list 'auto-mode-alist '("\\.js[mx]?\\'" . js2-mode))
+  ;;(add-to-list 'auto-mode-alist '("\\.js[mx]?\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 #+end_src
 
