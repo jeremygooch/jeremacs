@@ -31,6 +31,7 @@ To omit a block from being tangled, just set the src header to include =:tangle 
  - [[https://github.com/typescript-language-server/typescript-language-server][Typescript server]]. Make sure it is on your PATH
  - [[https://emacs-lsp.github.io/lsp-mode/page/lsp-angular/][Angular Language Server]]
  - eslint: ~npm i -g eslint~
+ - prettier: ~npm i -g prettier~
  - html support: =npm install -g vscode-langservers-extracted=
  - [[https://fonts.google.com/specimen/Roboto][Roboto]] and [[https://fonts.google.com/specimen/Inconsolata?authuser=3&hl=fa][Inconsolata]] fonts
  - Pandoc for converting between org mode and other formats like markdown
@@ -941,6 +942,16 @@ Override the default =M-.= keybinding from lsp-find-definition to use the lsp-ui
 (with-eval-after-load 'js
   (define-key js-mode-map (kbd "M-.") nil))
 #+end_src
+
+Adding prettier-js. Be sure prettier is installed with =npm i -g prettier=.
+#+begin_src emacs-lisp
+  (use-package prettier-js
+    :hook ((js2-mode-hook . prettier-js-mode)
+  	 (web-mode-hook . prettier-js-mode)
+  	 (typescript-mode . prettier-js-mode)
+  	 (tsx-ts-mode . prettier-js-mode)))
+#+end_src
+
 ***** Dape
 #+begin_src emacs-lisp
   (use-package dape
