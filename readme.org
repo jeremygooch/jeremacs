@@ -685,6 +685,23 @@ I prefer to see trailing whitespace but not for every mode (e.g. org, elfeed, et
 
   (set-face-attribute 'default nil :height 120)
 #+end_src
+
+*** Swapping windows within a frame
+I often end up needing to quickly swap buffers in a layout so here's a simple elisp to save on keystrokes.
+#+begin_src emacs-lisp
+(defun swap-windows ()
+  "Swap the buffers of the current window and the next window."
+  (interactive)
+  (let* ((this-window (selected-window))
+         (next-window (next-window))
+         (this-buffer (window-buffer this-window))
+         (next-buffer (window-buffer next-window)))
+    (unless (eq this-window next-window)
+      (set-window-buffer this-window next-buffer)
+      (set-window-buffer next-window this-buffer)
+      (select-window next-window))))
+ #+end_src
+
 *** Line Wrapping / Truncate Lines
 #+begin_src emacs-lisp
 (global-visual-line-mode t)
