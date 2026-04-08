@@ -1064,22 +1064,28 @@ Thank you [[https://www.masteringemacs.org/][mastering emacs]]!
 *** File Path
 Copy current File path. Lifted from (http://ergoemacs.org/emacs/emacs_copy_file_path.html)
 #+BEGIN_SRC emacs-lisp
-  (defun jrm/copy-file-path (&optional *dir-path-only-p)
-    "Copy the current buffer's file path or dired path to `kill-ring'.
-  Result is full path."
+  (defun jrm/copy-file-path (arg)
+    "Copy the current buffer's file path to the kill ring.
+
+  Default: copies the absolute path.
+  C-u: copies the path relative to the project.el root.
+  C-u C-u: copies just the file name."
     (interactive "P")
-    (let ((-fpath
-	   (if (equal major-mode 'dired-mode)
-	       (expand-file-name default-directory)
-	     (if (buffer-file-name)
-		 (buffer-file-name)
-	       (user-error "Current buffer is not associated with a file.")))))
-      (kill-new
-       (if *dir-path-only-p
-	   (progn
-	     (message "Directory path copied: 「%s」" (file-name-directory -fpath))
-	     (file-name-directory -fpath))
-	 (progn (message "File path copied: 「%s」" -fpath) -fpath )))))
+    (if-let ((path (buffer-file-name)))
+        (let ((result
+               (cond
+                ((null arg)
+                 path)
+                ((equal arg '(4))
+                 (if-let ((project (project-current)))
+                     (file-relative-name path (project-root project))
+                   (user-error "No project.el project found for this buffer")))
+                ((equal arg '(16))
+                 (file-name-nondirectory path)))))
+          (kill-new result)
+          (message "Copied: %s" result))
+      (user-error "Buffer is not visiting a file")))
+   
 #+END_SRC
 *** Advanced Terminals
 **** Ansi Terminal
