@@ -742,6 +742,11 @@ I frequently add org files as GH readmes or gists where having a TOC is helpful.
 	      (progn (add-hook 'org-mode-hook 'toc-org-mode))))
 #+end_src
 This will generate a new TOC on save for any headline with a relevant :toc: tag. More info: https://github.com/snosov1/toc-org?tab=readme-ov-file#use
+*** Misc
+Always focus on a help buffer just opened so you don't have to navigate to it.
+#+begin_src emacs-lisp
+(setq help-window-select t)
+#+end_src
 ** File Editing
 *** File Backups
  Keep temporary and backup buffers out of current directory like a civilized editor.
