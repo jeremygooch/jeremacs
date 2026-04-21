@@ -1231,10 +1231,12 @@ I like to keep the magit buffer open when closing all project files
    (derived-mode . compilation-mode)
    (derived-mode . dired-mode)
    (derived-mode . diff-mode)
-   (derived-mode . comint-mode)
+   (and (derived-mode . comint-mode)
+        (not (derived-mode . agent-shell-mode)))
    (derived-mode . eshell-mode)
    (derived-mode . change-log-mode)))
 #+end_src
+
 ** Load Additional Configs
 Load additional configs based on file name patterns
 #+begin_src emacs-lisp
