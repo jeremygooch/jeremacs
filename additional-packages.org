@@ -7,7 +7,12 @@
 
 * VTerm
 #+begin_src emacs-lisp :tangle no
-  (use-package vterm)
+  (use-package vterm
+    :config
+    (customize-set-variable
+     'vterm-keymap-exceptions
+     (append vterm-keymap-exceptions '("<f9>"))))
+
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
   ;; for some reason, using a setq or the :config or :custom keyword in
   ;; use-package does not set the variable correctly for
