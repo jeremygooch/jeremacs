@@ -6,7 +6,7 @@
 :END:
 
 * VTerm
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp 
   (use-package vterm
     :config
     (customize-set-variable
@@ -14,6 +14,9 @@
      (append vterm-keymap-exceptions '("<f9>"))))
 
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
+
+
+  
   ;; for some reason, using a setq or the :config or :custom keyword in
   ;; use-package does not set the variable correctly for
   ;; vterm. Resorting to custom-set-variables.
@@ -23,7 +26,25 @@
   ;; (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 #+end_src
 
+#+begin_src text :tangle ~/.emacs.d/koala.txt
+     .~~~~~~~~~~~~~~~~~~.
+     { M-x koala-vibes  }
+     '~~~~~~~~~~~~~~~~~~'
+             o
+              o
+               o   | |
+              {~ ⚬⬮⚬}|
+               /    Ͻ|
+              (    ) |
+              o\.___Ͻ|
+                   | |
+#+end_src
 
+#+begin_src sh :tangle ~/.emacs.d/vterm-banner.sh
+if [[ "$INSIDE_EMACS" == vterm* ]]; then
+  sed 's/|/\x1b[32m|\x1b[0m/g' ~/.emacs.d/koala.txt
+fi
+#+end_src
 * Ragmacs - GPTel Introspection
 #+begin_src emacs-lisp
   (use-package ragmacs
