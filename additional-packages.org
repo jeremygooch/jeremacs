@@ -45,6 +45,8 @@ if [[ "$INSIDE_EMACS" == vterm* ]]; then
   sed 's/|/\x1b[32m|\x1b[0m/g' ~/.emacs.d/koala.txt
 fi
 #+end_src
+
+=[ -f ~/.emacs.d/vterm-banner.sh ] && . ~/.emacs.d/vterm-banner.sh=
 * Ragmacs - GPTel Introspection
 #+begin_src emacs-lisp
   (use-package ragmacs
