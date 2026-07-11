@@ -8,6 +8,7 @@
 * VTerm
 #+begin_src emacs-lisp :tangle no
   (use-package vterm)
+  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
   ;; for some reason, using a setq or the :config or :custom keyword in
   ;; use-package does not set the variable correctly for
   ;; vterm. Resorting to custom-set-variables.
